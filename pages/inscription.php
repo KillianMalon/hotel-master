@@ -1,7 +1,7 @@
 <?php
 require_once '../component/header.php';
 require_once '../functions/sql.php';
-require_once 'bdd.php';
+include_once 'bdd.php';
 
 ?>
 <div class="content">
@@ -39,14 +39,13 @@ require_once 'bdd.php';
         foreach($allCountry as $country){
             $countryId = $country['id'];
             $countryName = $country['nom_fr_fr'];
-<<<<<<< HEAD
     ?>
     <option value="<?php echo $countryId?>"><?php echo $countryName; ?></option>
-=======
+
        
     ?>
-        <option value="<?php echo isset($countryId) and !empty($countryId)? $countryId : " "?>"><?php echo isset($countryName) and !empty($countryName)? $countryName : " "?></option>
->>>>>>> origin/master
+        <option value="<?php echo isset($countryId) and !empty($countryId)? $countryId : " "?>"><?php echo isset($countryName)
+                    and !empty($countryName)? $countryName : " "?></option>
 <?php
  }
 ?>
