@@ -1,7 +1,7 @@
 <?php
 require_once '../component/header.php';
-require_once '../functions/sql.php';
-require_once 'bdd.php';
+require '../functions/sql.php';
+require './pages/bdd.php';
 
 ?>
 <div class="content">
@@ -32,23 +32,16 @@ require_once 'bdd.php';
     <br>
     <label for="">Ville</label>
     <input type="text" name="city">
-    <br>
+    <br>/
     <select name="civility" id="">
     <?php
-        $allCountry = getCountry($dbh);
-        foreach($allCountry as $country){
+
+    $allCountry = getCountry($dbh);
+        foreach($allCountry as $country) {
             $countryId = $country['id'];
             $countryName = $country['nom_fr_fr'];
-<<<<<<< HEAD
-    ?>
-    <option value="<?php echo $countryId?>"><?php echo $countryName; ?></option>
-=======
-       
-    ?>
-        <option value="<?php echo isset($countryId) and !empty($countryId)? $countryId : " "?>"><?php echo isset($countryName) and !empty($countryName)? $countryName : " "?></option>
->>>>>>> origin/master
-<?php
- }
+
+        }
 ?>
     </select>
     <br>

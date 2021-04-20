@@ -9,8 +9,7 @@ try {
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     //  echo ("connexion ok");
-    
 } catch (PDOException $e) {
-    echo 'Connexion �chou�e : ' . $e->getMessage();
+    echo 'Connexion échouée : ' . $e->getMessage();
 }
 ?>
