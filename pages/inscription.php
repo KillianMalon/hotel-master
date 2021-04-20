@@ -1,7 +1,7 @@
 <?php
 require_once '../component/header.php';
 require_once '../functions/sql.php';
-include_once 'bdd.php';
+require_once 'bdd.php';
 
 ?>
 <div class="content">
@@ -42,10 +42,6 @@ include_once 'bdd.php';
     ?>
     <option value="<?php echo $countryId?>"><?php echo $countryName; ?></option>
 
-       
-    ?>
-        <option value="<?php echo isset($countryId) and !empty($countryId)? $countryId : " "?>"><?php echo isset($countryName)
-                    and !empty($countryName)? $countryName : " "?></option>
 <?php
  }
 ?>
