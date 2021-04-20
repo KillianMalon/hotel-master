@@ -1,9 +1,8 @@
 <?php
-
+require_once '../component/header.php';
 require_once '../functions/sql.php';
 require_once 'bdd.php';
 if(isset($_POST['send']) AND !empty($_POST['send'])){
-
     if(!empty($_POST['firstName']) AND !empty($_POST['lastName']) AND !empty($_POST['mail']) AND !empty($_POST['mailVerify']) AND !empty($_POST['password']) AND
         !empty($_POST['passwordVerify']) AND !empty($_POST['address']) AND !empty($_POST['postalCode']) AND !empty($_POST['city'])){
         $firstName = htmlspecialchars($_POST['firstName']);
@@ -45,7 +44,6 @@ if(isset($_POST['send']) AND !empty($_POST['send'])){
                                                             inscription($dbh, $firstName, $lastName, $mail, $password, $address, $postalCode, $city, $country, $civility, $image);
                                                             $user = getUserByName($dbh, $mail);
                                                             $_SESSION['id'] = $user['id'];
-                                                            echo "bite";
                                                         } else {
                                                             $error = "L'url n'est pas valide, veuillez en saisir un valide";
                                                         }
