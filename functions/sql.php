@@ -2,9 +2,23 @@
 function getCountry($dbh){
     $query = $dbh->prepare('SELECT * FROM pays');
     $query -> execute();
-    return $country = $query->fetchAll();
+    $country = $query->fetchAll();
+    return $country;
 }
 
+function getClient($dbh, $id){
+    $query = $dbh->prepare("SELECT * FROM clients WHERE id = ?");
+    $query->execute(array($id));
+    $client = $query->fetch();
+    return $client;
+}
+
+function getCountrybyid($dbh, $cid){
+    $query = $dbh->prepare("SELECT * FROM pays WHERE id = ?");
+    $query->execute(array($cid));
+    $cname = $query->fetch();
+    return $cname;
+}
 function mbUcfirst($str, $encode = 'UTF-8') {
 
     $start = mb_strtoupper(mb_substr($str, 0, 1, $encode), $encode);
@@ -19,7 +33,7 @@ function mailCheck($dbh, $mail){
 }
 function inscription($dbh, $firstName, $lastName, $mail, $password, $address, $postalCode, $city, $country, $civility, $image){
     $sql = $dbh->prepare("INSERT INTO clients (civilite, nom, prenom, adresse, codePostal, ville, pays_id, mail, password, image) VALUES(?,?,?,?,?,?,?,?,?,?)");
-    $sql->execute(array($civility, $firstName,$lastName, $address, $postalCode, $city, $country,$mail,$password,$image));
+    $sql->execute(array($civility,$lastName, $firstName, $address, $postalCode, $city, $country,$mail,$password,$image));
 }
 
 function getUserByName($dbh, $mail){
