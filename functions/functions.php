@@ -10,17 +10,6 @@ function checkDateFormat($date){
     }
 }
 
-function checkCapacityAdult($capacityRoom, $capacityEnter){
-    // match the format of the date
-    $length = strlen($capacityRoom);
-    if (preg_match ("/^([0-9]{1,$length})$/", "$capacityEnter"))
-    {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function checkCapacityChild($capacityRoom, $capacityEnter){
     // match the format of the date
     $length = strlen($capacityRoom);

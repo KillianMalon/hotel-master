@@ -1,12 +1,12 @@
 <?php session_start();
-//require_once '../component/header.php';
 
+require_once '../component/header.php';
 require '../functions/sql.php';
 require '../functions/functions.php';
 require 'bdd.php';
 
 
-if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION['chambreId'])  &&  !empty($_SESSION['numberAdult'])  &&  isset($_SESSION['numberChild'])) {
+if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION['chambreId'])  &&  !empty($_SESSION['numberAdult'])  ) {
     $end = $_SESSION['end'];
     $start = $_SESSION['start'];
     $chambreId = $_SESSION['chambreId'];
@@ -28,7 +28,6 @@ if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION[
     $endDateTime = new DateTime("$endPost");
 
 
-    $dbh = connexionBDD();
     while ($startDateTime < $endDateTime) {
         $chambreId =  $_POST['chambreId'];
         $id = $_SESSION['id'];
@@ -37,9 +36,14 @@ if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION[
         addReservation($dbh, $chambreId, $dateStartFormatted, $dateEndFormatted, $numberAdult, $numberAdult, $id);
         $startDateTime->add(new DateInterval('P1D'));
     }
-//    header('Location:./vosReservations.php');
+    header('Location:./vosReservations.php');
 }else{
-//    header('Location:./Chambres.php');
+    header('Location:./infoChambre.php');
+    unset($_SESSION['start']);
+    unset($_SESSION['end']);
+    unset($_SESSION['chambreId']);
+    unset($_SESSION['numberAdult']);
+    unset($_SESSION['numberChild']);
 }
 
 ?>
@@ -60,8 +64,8 @@ if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION[
     </div>
 <?php
 
-$startDateTime = new DateTime("$start");
-$endDateTime = new DateTime("$end");
+//$startDateTime = new DateTime("$start");
+//$endDateTime = new DateTime("$end");
 
 
 ?>

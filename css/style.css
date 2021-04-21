@@ -168,6 +168,10 @@ label #sidebar_btn:hover{
   font-size: 14px;
   opacity: 0.8;
 }
+.container{
+  display: flex;
+  flex-direction: row;
+}
 
 /* Responsive CSS */
 

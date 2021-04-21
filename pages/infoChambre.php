@@ -1,5 +1,6 @@
 <?php
-//require_once '../component/header.php';
+session_start();
+require_once '../component/header.php';
 require '../functions/sql.php';
 require '../functions/functions.php';
 require 'bdd.php';
@@ -10,18 +11,16 @@ if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre'
     $start = $_POST['start'];
     $end = $_POST['end'];
     $capacity = $_POST['capacity'];
-    $numberAdult = $_POST['numberAdult'];
-    $numberChild = $_POST['numberChild'];
 
     $trueStartDate = checkDateFormat($start);
     $trueEndDate = checkDateFormat($end);
 
-    $checkNumberAdult = checkCapacityAdult($capacity, $numberAdult);
-    $checkNumberChild = checkCapacityChild($capacity, $numberChild);
+    $numberAdult = intval($_POST['numberAdult']);
+    $numberChild = checkCapacityChild($dbh, $_POST['numberChild']);
 
 
 
-    if ($trueStartDate == 1 && $trueEndDate == 1 && $checkNumberAdult == 1 && $checkNumberChild ==1){
+    if ($trueStartDate == 1 && $trueEndDate == 1 && !empty($numberAdult) && !empty($numberChild)){
         if (!empty($_GET['id'])) {
             $numeroChambre = $_GET["id"];
             $capacite2 = getCapacity($dbh, $numeroChambre);
@@ -29,6 +28,7 @@ if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre'
                 $capacite3 = $capacite2[0];
             }
         }
+        var_dump($_POST);
         $capacite = $numberAdult + $numberChild;
         if ($capacite <= $capacite3['capacite']) {
             $dateStart = new DateTime("$start");
@@ -55,7 +55,9 @@ if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre'
                         $_SESSION['end'] = $dateEndFormatted;
                         $_SESSION['numberAdult'] = $numberAdult;
                         $_SESSION['numberChild'] = $numberChild;
+                        if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION['chambreId'])  &&  !empty($_SESSION['numberAdult']) && isset($_SESSION['numberChild'])) {
                         header('Location:./confirmReservation.php');
+                        }
                     }
                 }
             }
@@ -88,7 +90,6 @@ if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre'
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         height: 100vh;
         text-shadow: 2px 0 0 rgb(255, 255, 255), 2px 2px 0 rgb(255, 255, 255), 0 2px 0 rgb(255, 255, 255), -2px 2px 0 rgb(255, 255, 255), -2px 0 0 rgb(255, 255, 255), -2px -2px 0 rgb(255, 255, 255), 0 -2px 0 rgb(255, 255, 255), 2px -2px 0 rgb(255, 255, 255);
-        background-image: url("../../Images/sombre.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -123,19 +124,16 @@ $tomorrowFormatted = $tomorrow->format('Y-m-d');
 ?>
 <main>
     <?php if (!empty($chambres)): ?>
-        <div class="haut">
-            <p> Chambre <?php echo $numeroChambre ?></p>
+    <div class="content">
 
-        </div>
         <br><br>
 
-            <div class="card-group" >
-                <div class="card" style="border: none;">
+            <div class="container">
+                <div class="picture">
                     <img src="<?php echo($chambres['Liens'])?>" class="card-img-top" style="height: 100%;" alt="...">
                 </div>
-                <div class="card" style="border-right:none;" >
-                    <div class="card-body">
-                        <h5 class="card-title">Chambre <?php echo $numeroChambre;?></h5>
+                <div class="text">
+                        <h3 class="card-title">Chambre <?php echo $numeroChambre;?></h3>
                         <p class="card-text"><?php echo ($chambres['description']);?></p>
                         <p>Etage : <?php echo ($chambres['etage']);?></p>
                         <p>Equipement : <?php echo ($chambres['douche']);?> douche</p>
@@ -193,10 +191,11 @@ $tomorrowFormatted = $tomorrow->format('Y-m-d');
                             <input type="submit"  class="btn btn-primary" value="Cliquez pour valider réservation">
 
                         </form>
-                    </div>
+
                 </div>
-            </div>
-        <br><br><br>
+
+    </div>
+       <br><br><br>
     <?php else: ?>
         <div class="bass">
             <p> Aucune chambre trouvée</p>
