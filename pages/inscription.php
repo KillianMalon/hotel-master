@@ -35,7 +35,7 @@ if(isset($_POST['send']) AND !empty($_POST['send'])){
                                                 if($country <= 241){
                                                     $civility = htmlspecialchars($_POST['civility']);
                                                     if($civility = "Monsieur" || $civility = "Madame"){
-                                                        if(isset($_POST['image'])) {
+                                                        if(isset($_POST['image']) AND !empty($_POST['image'])) {
                                                             $image = $_POST['image'];
                                                         }else{
                                                             $image = "https://i.ibb.co/47nY0vM/default-avatar.jpg";
@@ -90,69 +90,130 @@ if(isset($_POST['send']) AND !empty($_POST['send'])){
 }
 
 ?>
-<div class="content">
-    <?php
-    var_dump($_POST);
-    ?>
+<div class="contentInscription">
+    <div class="inscriptionH1">
+        <h1>Formulaire d'inscription</h1>
+    </div>
 <form action="" method="post">
-    <label for="" >Nom :</label>
-    <input type="text" name="lastName">
+    <div class="divInfos">
+        <div>
+            <div>
+                <label for="" >Nom* :</label>
+            </div>
+            <input type="text" name="lastName">
+        </div>
+        <div>
+            <div>
+                <label for="">Prénom* :</label>
+            </div>
+            <input type="text" name="firstName">
+        </div>
+    </div>
     <br>
-    <label for="">Prénom :</label>
-    <input type="text" name="firstName">
-    <br>
-    <label for="">Adresse email</label>
-    <input type="mail" name="mail">
-    <br>
-    <label for="">Confirmer Adresse email</label>
-    <input type="mail" name="mailVerify">
-    <br>
-    <label for="">Mot de passe</label>
-    <input type="password" name="password">
-    <br>
-    <label for="">Confirmer mot de passe</label>
-    <input type="password" name="passwordVerify">
-    <br>
-    <label for="">Adresse</label>
-    <input type="text" name="address">
-    <br>
-    <label for="">Code postal</label>
-    <input type="number" name="postalCode">
-    <br>
-    <label for="">Ville</label>
-    <input type="text" name="city">
-    <br>
-    <select name="country">
-    <?php
-        $allCountry = getCountry($dbh);
-        foreach($allCountry as $country){
-            $countryId = $country['id'];
-            $countryName = $country['nom_fr_fr'];
-    ?>
-    <option value="<?php echo $countryId?>"><?php echo $countryName; ?></option>
 
-<?php
- }
-?>
-    </select>
+        <div class="divInfos2">
+            <div>
+                <label for="">Adresse email :*</label>
+            </div>
+            <input type="mail" name="mail">
+        </div>
     <br>
-    <label for="">Civilité</label>
-    <select name="civility" id="">
-      <option value="Monsieur" default>Monsieur</option>
-      <option value="Madame">Madame</option>
-    </select>
+        <div class="divInfos2">
+            <div>
+                <label for="">Confirmer Adresse email :*</label>
+            </div>
+            <input type="mail" name="mailVerify">
+        </div>
+
+
     <br>
-    <label for=""> Photo de profil (non obligatoire):</label>
-    <input type="url" name="image">
+
+        <div class="divInfos2">
+            <div>
+                <label for="">Mot de passe :*</label>
+            </div>
+            <input type="password" name="password">
+        </div>
     <br>
-    <input type="submit" name="send" value="S'inscrire">
+        <div class="divInfos2">
+            <div>
+                <label for="">Confirmer mot de passe :*</label>
+            </div>
+            <input type="password" name="passwordVerify">
+        </div>
+    <br>
+
+        <div class="divInfos2">
+            <div>
+                <label for="">Adresse :*</label>
+            </div>
+            <input type="text" name="address">
+        </div>
+    <br>
+        <div class="divInfos2">
+            <div>
+                <label for="">Code postal :*</label>
+            </div>
+            <input type="number" name="postalCode">
+        </div>
+
+    <br>
+
+        <div class="divInfos2">
+            <div>
+                <label for="">Ville :*</label>
+            </div>
+            <input type="text" name="city">
+        </div>
+    <br>
+        <div class="divInfos2">
+            <div>
+                <label for=""> Photo de profil :</label>
+            </div>
+            <input type="url" name="image">
+        </div>
+    <br>
+
+        <div class="divInfos2">
+            <select name="country">
+                <option value="">Pays</option>
+                <?php
+                $allCountry = getCountry($dbh);
+                foreach($allCountry as $country){
+                    $countryId = $country['id'];
+                    $countryName = $country['nom_fr_fr'];
+                    ?>
+                    <option value="<?php echo $countryId?>"><?php echo $countryName; ?></option>
+                    <?php
+                }
+                ?>
+            </select>
+        </div>
+    <br>
+        <div class="divInfos2">
+            <select name="civility" id="">
+                <option value="Monsieur" default>Monsieur</option>
+                <option value="Madame">Madame</option>
+            </select>
+        </div>
+    <br>
+    <div class="errorMessageInscription">
+        <p style="color:red;">
+        <?php
+        if(isset($error) AND !empty($error)){
+            echo $error;
+        }
+        ?>
+        </p>
+    </div>
+    <br>
+    <div class="divInfos3">
+        <input type="submit" name="send" value="S'inscrire">
+    </div>
 </form>
-    <?php
-    if(isset($error) AND !empty($error)){
-        echo $error;
-    }
-    ?>
+<br>
 </div>
+
 
     </body>
 </html>
