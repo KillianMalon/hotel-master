@@ -59,7 +59,7 @@ function inscription($dbh, $firstName, $lastName, $mail, $password, $address, $p
     $sql->execute(array($civility, $firstName,$lastName, $address, $postalCode, $city, $country,$mail,$password,$image));
 }
 
-function getUserByName($dbh, $mail){
+function getUserByMail($dbh, $mail){
     $query = $dbh->prepare('SELECT * FROM clients WHERE mail = ?');
     $query->execute(array($mail));
     return $user = $query->fetch();
