@@ -13,4 +13,3 @@ try {
 } catch (PDOException $e) {
     echo 'Connexion �chou�e : ' . $e->getMessage();
 }
-?>

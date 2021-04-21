@@ -2,6 +2,7 @@ body{
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
+  background-color: #ececec;
 }
 
 header{
@@ -33,16 +34,35 @@ header{
   float: right;
   margin-top: -30px;
   margin-right: 40px;
-  border-radius: 2px;
+  border-radius: 5px;
   font-size: 15px;
   font-weight: 600;
   color: #fff;
   transition: 0.5s;
   transition-property: background;
 }
+.logout_btn2{
+  padding: 5px;
+  background: #fff;
+  text-decoration: none;
+  float: right;
+  margin-top: -30px;
+  margin-right: 150px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #19B3D3;
+  transition: 0.5s;
+  transition-property: background;
+}
 
 .logout_btn:hover{
-  background: #0B87A6;
+  background: #fff;
+  color: #19B3D3;
+}
+.logout_btn2:hover{
+  background: #19B3D3;
+  color: #fff;
 }
 
 .sidebar{
@@ -135,14 +155,19 @@ label #sidebar_btn:hover{
   margin-top: 60px;
   padding: 20px;
   margin-left: 250px;
-  background: url(background.png) no-repeat;
-  background-position: center;
-  background-size: cover;
   height: 100vh;
   transition: 0.5s;
 }
 .window{
   width: 100%;
+}
+
+.client{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
 #check:checked ~ .content{
@@ -168,7 +193,150 @@ label #sidebar_btn:hover{
   font-size: 14px;
   opacity: 0.8;
 }
+/*PARTIE INSCRIPTION */
+.contentInscription{
+  width: (100% - 250px);
+  margin-top: 60px;
+  padding: 20px;
+  margin-left: 250px;
+  height: 88vh;
+  transition: 0.5s;
+}
+#check:checked ~ .contentInscription{
+  margin-left: 60px;
+}
+form{
+  margin-top:50px;
+}
+.divInfos{
+  margin-left: 7.5%;
+  width: 85%;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+}
+.divInfos div{
+  width: 40%;
+  display: flex;
+  flex-direction:column;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+.divInfos div div label{
+  float: left;
+  margin-left: 0px;
+}
+.divInfos div input[type="text"]{
+  height: 25px;
+  border:none;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
+.divInfos2{
+  display: flex;
+  flex-direction: column;
+  align-items:center ;
+  width: 85%;
+  margin-left: 7.5%;
+}
+.divInfos2 div {
+  width: 86%;
+}
+.divInfos2 div label{
+  float: left;
+  margin-left: 1%;
+}
+.divInfos2 input[type="text"]{
+  height: 25px;
+  border:none;
+  width: 84%;
+  margin-right: 2%;
+  margin-left: 2%;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
+.divInfos2 input[type="mail"]{
+  height: 25px;
+  width: 84%;
+  margin-right: 2%;
+  margin-left: 2%;
+  float: right;
+  border:none;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
 
+.divInfos2 input[type="password"]{
+  height: 25px;
+  width: 84%;
+  margin-right: 2%;
+  margin-left: 2%;
+  border:none;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
+.divInfos2 input[type="number"]{
+  height: 25px;
+  width: 84%;
+  margin-right: 2%;
+  margin-left: 2%;
+  border:none;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
+
+.divInfos2 input[type="url"]{
+  height:25px;
+  width: 84%;
+  margin-right: 2%;
+  margin-left: 2%;
+  border:none;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
+.divInfos2 select{
+  height:30px;
+  width: 84%;
+  margin-right: 2%;
+  margin-left: 2%;
+  border:none;
+  outline-style:none;
+  border-bottom: 1px solid #19B3D3;
+  background-color: #ececec;
+}
+.divInfos3{
+  width: 84%;
+  margin-left: 7.5%;
+  display: flex;
+  justify-content: center;
+}
+.divInfos3 input[type="submit"]{
+  margin-right: 7%;
+  background-color: #19B3D3;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+}
+.divInfos3 input[type="submit"]:hover{
+  background-color:#0B87A6;
+  cursor: pointer;
+}
+
+.inscriptionH1{
+  display: flex;
+  justify-content: center;
+}
+.errorMessageInscription{
+  display: flex;
+  justify-content: center;
+}
 /* Responsive CSS */
 
 @media screen and (max-width: 780px){
@@ -253,4 +421,3 @@ label #sidebar_btn:hover{
     display: block;
   }
 }
-      
