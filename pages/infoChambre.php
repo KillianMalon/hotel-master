@@ -5,27 +5,30 @@ require '../functions/functions.php';
 require 'bdd.php';
 
 
-if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre']) && !empty($_POST['numberAdult']) && isset($_POST['numberChild'])){
+if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre']) && !empty($_POST['capacity']) && !empty($_POST['numberAdult']) && isset($_POST['numberChild'])){
 
     $start = $_POST['start'];
     $end = $_POST['end'];
+    $capacity = $_POST['capacity'];
+    $numberAdult = $_POST['numberAdult'];
+    $numberChild = $_POST['numberChild'];
+
     $trueStartDate = checkDateFormat($start);
     $trueEndDate = checkDateFormat($end);
 
-    if ($trueStartDate === 1 && $trueEndDate === 1){
+    $checkNumberAdult = checkCapacityAdult($capacity, $numberAdult);
+    $checkNumberChild = checkCapacityChild($capacity, $numberChild);
 
+
+
+    if ($trueStartDate == 1 && $trueEndDate == 1 && $checkNumberAdult == 1 && $checkNumberChild ==1){
         if (!empty($_GET['id'])) {
             $numeroChambre = $_GET["id"];
-
             $capacite2 = getCapacity($dbh, $numeroChambre);
             if (!empty($capacite2)) {
                 $capacite3 = $capacite2[0];
-
             }
         }
-
-        $numberAdult = $_POST['numberAdult'];
-        $numberChild = $_POST['numberChild'];
         $capacite = $numberAdult + $numberChild;
         if ($capacite <= $capacite3['capacite']) {
             $dateStart = new DateTime("$start");
@@ -40,7 +43,7 @@ if(!empty($_POST['start']) && !empty($_POST['end']) && !empty($_POST['idChambre'
 
                     while ($dateStart < $dateEnd) {
                         $id = $_GET['id'];
-                        checkReservationsEmpty($dbh, $dateStartFormatted);
+                        $reservationsCheck = checkReservationsEmpty($dbh, $dateStartFormatted, $id);
                         if (!empty($reservationsCheck)) {
                             $arrayCheck = array($reservationsCheck[0]['jour']);
                         }
@@ -186,6 +189,7 @@ $tomorrowFormatted = $tomorrow->format('Y-m-d');
                         <br><br><br><br>
 
                             <input type="number" name="idChambre" hidden="hidden" value="<?php echo($chambres['id']); ?>">
+                            <input type="number" name="capacity" hidden="hidden" value="<?php echo($chambres['capacite']); ?>">
                             <input type="submit"  class="btn btn-primary" value="Cliquez pour valider réservation">
 
                         </form>
